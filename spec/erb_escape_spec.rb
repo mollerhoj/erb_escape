@@ -5,7 +5,11 @@ RSpec.describe ErbEscape do
     expect(ErbEscape::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  it "can escape erb expression tags" do
+    expect(described_class.escape("<%= 'x' %>")).to eq("<pre class=\"erb-expression\"> &#39;x&#39; </pre>")
+  end
+
+  it "can unescape erb expression tags" do
+    expect(described_class.unescape("<pre class=\"erb-expression\"> &#39;x&#39; </pre>")).to eq("<%= 'x' %>")
   end
 end
